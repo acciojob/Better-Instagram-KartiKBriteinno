@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <script src="script.js " defer></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Better Instagram</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1 style="text-align: center">Arrange Images by Drag and Drop</h1>
-    <div class="container flex" id="parent">
-        <div id="div1" class="image" draggable="true"></div>
-        <div id="div2" class="image" draggable="true"></div>
-        <div id="div3" class="image" draggable="true"></div>
-        <div id="div4" class="image" draggable="true"></div>
-        <div id="div5" class="image" draggable="true"></div>
-        <div id="div6" class="image" draggable="true"></div>
+  </head>
+  <body>
+    <h1 style="text-align: center">Arrange Images by drag and drop</h1>
+  <div class="flex" id="parent">
+    <div droppable = "true"  draggable="true" class="image" id="div1">
+      <img droppable = "true"  draggable="true" id='drag1'>Image 1</img>
     </div>
-    <script src="script.js"></script>
-</body>
+
+    <div droppable = "true"  draggable="true" class="image" id="div2">
+      <img droppable = "true"  draggable="true" id='drag2'>Image 2</img>
+    </div>
+
+    <div droppable = "true"  draggable="true" class="image" id="div3">
+      <img droppable = "true"  draggable="true" id='drag3'>Image 3</img>
+    </div>
+
+    <div droppable = "true"  draggable="true" class="image" id="div4">
+      <img droppable = "true"  draggable="true" id='drag4'>Image 4</img>
+    </div>
+
+    <div droppable = "true"  draggable="true" class="image" id="div5">
+      <img droppable = "true"  draggable="true" id='drag5'>Image 5</img>
+    </div>
+
+    <div droppable = "true"  draggable="true" class="image" id="div6">
+      <img droppable = "true"  draggable="true" id='drag6'>Image 6</img>
+    </div>
+  </body>
 </html>

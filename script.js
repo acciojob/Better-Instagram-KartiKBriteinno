@@ -1,47 +1,47 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const draggables = document.querySelectorAll(".image");
 
-    draggables.forEach(draggable => {
-        draggable.addEventListener("dragstart", dragStart);
-        draggable.addEventListener("dragover", dragOver);
-        draggable.addEventListener("dragenter", dragEnter);
-        draggable.addEventListener("dragleave", dragLeave);
-        draggable.addEventListener("drop", drop);
-        draggable.addEventListener("dragend", dragEnd);
-    });
+let dragindex = 0;
+let dropindex = 0;
+let clone = "";
 
-    function dragStart(e) {
-        e.dataTransfer.setData("text/plain", e.target.id);
-        setTimeout(() => {
-            e.target.classList.add("dragging");
-        }, 0);
+const images = document.querySelectorAll(".image");
+
+function drag(e) {
+  e.dataTransfer.setData("text", e.target.id);
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+}
+
+function drop(e) {
+  clone = e.target.cloneNode(true);
+  let data = e.dataTransfer.getData("text");
+  let nodelist = document.getElementById("parent").childNodes;
+  console.log(data, e.target.id);
+  for (let i = 0; i < nodelist.length; i++) {
+    if (nodelist[i].id == data) {
+      dragindex = i;
     }
+  }
 
-    function dragOver(e) {
-        e.preventDefault();
-    }
+  dragdrop(clone);
 
-    function dragEnter(e) {
-        e.preventDefault();
-    }
+  document
+    .getElementById("parent")
+    .replaceChild(document.getElementById(data), e.target);
 
-    function dragLeave(e) {
-        e.target.classList.remove("over");
-    }
+  document
+    .getElementById("parent")
+    .insertBefore(
+      clone,
+      document.getElementById("parent").childNodes[dragindex]
+    );
+}
 
-    function drop(e) {
-        e.target.classList.remove("over");
-        const id = e.dataTransfer.getData("text");
-        const draggable = document.getElementById(id);
-        const target = e.target;
+const dragdrop = (image) => {
+  image.ondragstart = drag;
+  image.ondragover = allowDrop;
+  image.ondrop = drop;
+};
 
-        // Swap the background images
-        const tempBackground = draggable.style.backgroundImage;
-        draggable.style.backgroundImage = target.style.backgroundImage;
-        target.style.backgroundImage = tempBackground;
-    }
-
-    function dragEnd(e) {
-        e.target.classList.remove("dragging");
-    }
-});
+images.forEach(dragdrop);

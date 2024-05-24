@@ -50,11 +50,14 @@ div.container {
   align-items: center;
 }
 
-.image {
-  border: 2px solid transparent;
-  transition: border 0.3s;
+.selected {
+  border: 5px solid rgb(0, 195, 255);
 }
 
-.image.dragging {
-  border: 2px dashed #000;
+p {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
 }
