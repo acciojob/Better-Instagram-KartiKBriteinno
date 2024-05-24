@@ -1,41 +1,47 @@
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('.image');
-    let draggedElement = null;
+document.addEventListener("DOMContentLoaded", () => {
+    const draggables = document.querySelectorAll(".image");
 
-    images.forEach(image => {
-        image.addEventListener('dragstart', (e) => {
-            draggedElement = e.target;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', draggedElement.innerHTML);
-        });
-
-        image.addEventListener('dragover', (e) => {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        });
-
-        image.addEventListener('drop', (e) => {
-            if (e.stopPropagation) {
-                e.stopPropagation(); // Stops some browsers from redirecting.
-            }
-
-            if (draggedElement !== e.target) {
-                let draggedBg = window.getComputedStyle(draggedElement).backgroundImage;
-                let droppedBg = window.getComputedStyle(e.target).backgroundImage;
-
-                draggedElement.style.backgroundImage = droppedBg;
-                e.target.style.backgroundImage = draggedBg;
-            }
-
-            return false;
-        });
-
-        image.addEventListener('dragend', (e) => {
-            e.dataTransfer.clearData();
-        });
+    draggables.forEach(draggable => {
+        draggable.addEventListener("dragstart", dragStart);
+        draggable.addEventListener("dragover", dragOver);
+        draggable.addEventListener("dragenter", dragEnter);
+        draggable.addEventListener("dragleave", dragLeave);
+        draggable.addEventListener("drop", drop);
+        draggable.addEventListener("dragend", dragEnd);
     });
+
+    function dragStart(e) {
+        e.dataTransfer.setData("text/plain", e.target.id);
+        setTimeout(() => {
+            e.target.classList.add("dragging");
+        }, 0);
+    }
+
+    function dragOver(e) {
+        e.preventDefault();
+    }
+
+    function dragEnter(e) {
+        e.preventDefault();
+    }
+
+    function dragLeave(e) {
+        e.target.classList.remove("over");
+    }
+
+    function drop(e) {
+        e.target.classList.remove("over");
+        const id = e.dataTransfer.getData("text");
+        const draggable = document.getElementById(id);
+        const target = e.target;
+
+        // Swap the background images
+        const tempBackground = draggable.style.backgroundImage;
+        draggable.style.backgroundImage = target.style.backgroundImage;
+        target.style.backgroundImage = tempBackground;
+    }
+
+    function dragEnd(e) {
+        e.target.classList.remove("dragging");
+    }
 });
